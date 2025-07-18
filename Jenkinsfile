@@ -2,8 +2,7 @@ pipeline {
     agent any
 
     environment {
-        AWS_REGION = 'us-east-1'
-        TF_VERSION = '1.6.0'
+         AWS_CREDENTIALS_ID = credentials'c27697ce-6a84-427b-8415-6f2efc2f4bcf''  
     }
 
 
@@ -17,19 +16,7 @@ pipeline {
             }
         }
 
-        stage('Setup AWS Credentials') {
-            steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'c27697ce-6a84-427b-8415-6f2efc2f4bcf']]) {
-                    sh '''
-                        export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-                        export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-                        export AWS_DEFAULT_REGION=${AWS_REGION}
-                        echo "AWS Credentials Set"
-                    '''
-                }
-            }
-        }
-
+        
         stage('Terraform Init') {
             steps {
                 sh 'terraform init'
