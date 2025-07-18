@@ -4,3 +4,6 @@ provider "aws" {
 resource "aws_iam_user" "name" {
   name = "example"
 }
+resource "aws_iam_user" "met" {
+  name = "exam-ple"
+}
