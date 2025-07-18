@@ -6,9 +6,7 @@ pipeline {
         TF_VERSION = '1.6.0'
     }
 
-    tools {
-        terraform "${TF_VERSION}"
-    }
+
 
     stages {
         stage('Checkout Terraform Code') {
