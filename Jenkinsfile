@@ -1,13 +1,16 @@
 pipeline {
     agent any
 
-    environment {
-         AWS_CREDENTIALS_ID = credentials'c27697ce-6a84-427b-8415-6f2efc2f4bcf'
+environment {
+       AWS_CREDENTIALS_ID = credentials'c27697ce-6a84-427b-8415-6f2efc2f4bcf'  // Replace with actual AWS credential ID
     }
 
-
+    parameters {
+        choice(name: 'ACTION', choices: ['apply', 'destroy'], description: 'Choose Terraform action')
+    }
 
     stages {
+        
         stage('Checkout Terraform Code') {
             steps {
                 git branch: 'main',
@@ -16,7 +19,6 @@ pipeline {
             }
         }
 
-        
         stage('Terraform Init') {
             steps {
                 sh 'terraform init'
@@ -31,7 +33,6 @@ pipeline {
 
         stage('Terraform Apply') {
             steps {
-                input message: "Do you want to apply Terraform changes?"
                 sh 'terraform apply -auto-approve'
             }
         }
